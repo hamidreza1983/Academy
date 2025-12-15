@@ -1,21 +1,20 @@
 interface CourseCardProps {
-    title: string;
-    image: string;
-    price: string;
-  }
-  
-  const CourseCard = ({ title, image, price }: CourseCardProps) => {
-    return (
-      <div className="card h-100 shadow-sm border-0">
-        <img src={image} className="card-img-top" alt={title} />
-        <div className="card-body d-flex flex-column">
-          <h6 className="fw-bold mb-2">{title}</h6>
-          <p className="text-muted mb-3">قیمت: {price} تومان</p>
-          <button className="btn btn-primary mt-auto">مشاهده دوره</button>
-        </div>
+  title: string;
+  image: string;
+  price: string;
+  className?: string; // ← اضافه کن
+}
+
+const CourseCard = ({ title, image, price, className }: CourseCardProps) => {
+  return (
+    <div className={`card h-100 shadow-sm border-0 ${className}`}>
+      <img src={image} className="card-img-top" alt={title} />
+      <div className="card-body text-end">
+        <h6 className="card-title">{title}</h6>
+        <p className="text-muted">{price}</p>
       </div>
-    );
-  };
-  
-  export default CourseCard;
-  
+    </div>
+  );
+};
+
+export default CourseCard;

@@ -1,25 +1,20 @@
 interface ItemCardProps {
-    title: string;
-    image: string;
-  }
-  
-  const ItemCard = ({ title, image }: ItemCardProps) => {
-    return (
-      <div className="card mb-3 shadow-sm border-0">
-        <img
-            src={image}
-            className="card-img-top"
-            alt={title}
-            style={{ height: "120px", objectFit: "cover" }}
-            />
+  title: string;
+  image: string;
+  className?: string; // ← اضافه کن
+}
 
-            <div className="card-body p-2">
-            <h6 className="card-title mb-0">{title}</h6>
-            </div>
-
+const ItemCard = ({ title, image, className }: ItemCardProps) => {
+  return (
+    <div className={`card h-100 shadow-sm border-0 ${className}`}>
+      <img src={image} className="card-img-top" alt={title} />
+      <div className="card-body text-end">
+        <h6 className="card-title">{title}</h6>
       </div>
-    );
-  };
-  
-  export default ItemCard;
+    </div>
+  );
+};
+
+export default ItemCard;
+
   

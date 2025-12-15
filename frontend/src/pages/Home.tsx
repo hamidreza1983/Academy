@@ -1,10 +1,10 @@
 import CourseCard from "../components/course/CourseCard";
+import ItemCard from "../components/common/ItemCard";
 import { latestCourses } from "../mock/courses";
 import { latestArticles } from "../mock/articles";
 import { latestBlogs } from "../mock/blogs";
-import ItemCard from "../components/common/ItemCard";
 
-
+// تابع کمکی برای گروه‌بندی آخرین دوره‌ها در Carousel
 const chunkArray = (arr: any[], size: number) => {
   const chunks = [];
   for (let i = 0; i < arr.length; i += size) {
@@ -12,10 +12,6 @@ const chunkArray = (arr: any[], size: number) => {
   }
   return chunks;
 };
-
-
-
-
 
 const Home = () => {
   return (
@@ -39,9 +35,9 @@ const Home = () => {
 
       {/* Cards Section */}
       <section className="container py-5">
-        <div className="row justify-content-center text-center">
-          <div className="col-md-3 col-sm-6 mb-3">
-            <div className="card h-100 shadow-sm border-0">
+        <div className="row justify-content-center text-center g-4">
+          <div className="col-md-3 col-sm-6">
+            <div className="card h-100 shadow-sm border-0 card-hover">
               <div className="card-body">
                 <h5 className="card-title text-primary">دوره‌ها</h5>
                 <p className="card-text text-secondary">
@@ -51,8 +47,8 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="col-md-3 col-sm-6 mb-3">
-            <div className="card h-100 shadow-sm border-0">
+          <div className="col-md-3 col-sm-6">
+            <div className="card h-100 shadow-sm border-0 card-hover">
               <div className="card-body">
                 <h5 className="card-title text-primary">مقالات</h5>
                 <p className="card-text text-secondary">
@@ -62,8 +58,8 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="col-md-3 col-sm-6 mb-3">
-            <div className="card h-100 shadow-sm border-0">
+          <div className="col-md-3 col-sm-6">
+            <div className="card h-100 shadow-sm border-0 card-hover">
               <div className="card-body">
                 <h5 className="card-title text-primary">مسیر شغلی</h5>
                 <p className="card-text text-secondary">
@@ -75,8 +71,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Latest Courses */}
-      {/* Latest Courses Slider */}
+      {/* Latest Courses Carousel */}
       <section className="container py-5">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h4 className="fw-bold">آخرین دوره‌ها</h4>
@@ -86,26 +81,26 @@ const Home = () => {
         </div>
 
         <div
-            id="coursesCarousel"
-            className="carousel slide"
-            data-bs-ride="carousel"
-            data-bs-interval="3500"
-            data-bs-pause="hover"
-          >
-
+          id="coursesCarousel"
+          className="carousel slide carousel-fade"
+          data-bs-ride="carousel"
+          data-bs-interval="3500"
+          data-bs-pause="hover"
+        >
           <div className="carousel-inner">
             {chunkArray(latestCourses, 4).map((group, index) => (
               <div
                 key={index}
                 className={`carousel-item ${index === 0 ? "active" : ""}`}
               >
-                <div className="row">
+                <div className="row g-3 justify-content-center">
                   {group.map((course) => (
                     <div key={course.id} className="col-md-3">
                       <CourseCard
                         title={course.title}
                         image={course.image}
                         price={course.price}
+                        className="card-hover"
                       />
                     </div>
                   ))}
@@ -133,29 +128,51 @@ const Home = () => {
           </button>
         </div>
       </section>
-            {/* Articles & Blogs */}
-            <section className="container py-5">
-        <div className="row justify-content-center">
-          {/* Articles Column */}
-          <div className="col-lg-5 col-md-12 mb-4">
-            <h5 className="fw-bold mb-3 text-center">آخرین مقالات</h5>
-            {latestArticles.map((article) => (
-              <ItemCard key={article.id} title={article.title} image={article.image} />
-            ))}
-          </div>
 
-          {/* Blogs Column */}
-          <div className="col-lg-5 col-md-12 mb-4">
-            <h5 className="fw-bold mb-3 text-center">آخرین اخبار بلاگ</h5>
-            {latestBlogs.map((blog) => (
-              <ItemCard key={blog.id} title={blog.title} image={blog.image} />
-            ))}
-          </div>
+      {/* Latest Articles */}
+      <section className="container py-5">
+        <h4 className="fw-bold mb-4 text-center">آخرین مقالات</h4>
+
+        <div
+          className="d-flex gap-3 overflow-auto"
+          style={{ paddingBottom: "10px" }}
+        >
+          {latestArticles.map((article) => (
+            <div key={article.id} style={{ minWidth: "250px", flex: "0 0 auto" }}>
+              <ItemCard
+                title={article.title}
+                image={article.image}
+                className="card-hover"
+              />
+            </div>
+          ))}
         </div>
       </section>
 
+      {/* Divider */}
+      <div className="container">
+        <hr className="my-4" />
+      </div>
 
+      {/* Latest Blogs */}
+      <section className="container py-5">
+        <h4 className="fw-bold mb-4 text-center">آخرین اخبار بلاگ</h4>
 
+        <div
+          className="d-flex gap-3 overflow-auto"
+          style={{ paddingBottom: "10px" }}
+        >
+          {latestBlogs.map((blog) => (
+            <div key={blog.id} style={{ minWidth: "250px", flex: "0 0 auto" }}>
+              <ItemCard
+                title={blog.title}
+                image={blog.image}
+                className="card-hover"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
     </>
   );
 };
